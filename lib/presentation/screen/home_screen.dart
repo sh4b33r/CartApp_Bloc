@@ -1,8 +1,8 @@
 import 'package:bloc_rest/application/cart_bloc/cart_bloc.dart';
 import 'package:bloc_rest/application/cart_bloc/cart_event.dart';
 import 'package:bloc_rest/application/cart_bloc/cart_state.dart';
-import 'package:bloc_rest/application/home_bloc/home_bloc.dart';
-import 'package:bloc_rest/application/home_bloc/home_state.dart';
+import 'package:bloc_rest/application/home_cubit/home_bloc.dart';
+import 'package:bloc_rest/application/home_cubit/home_state.dart';
 import 'package:bloc_rest/presentation/screen/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

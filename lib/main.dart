@@ -1,4 +1,4 @@
-import 'package:bloc_rest/application/home_bloc/home_bloc.dart';
+import 'package:bloc_rest/application/home_cubit/home_bloc.dart';
 import 'package:bloc_rest/application/login_bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeCubit extends Cubit<HomeState>{
  HomeCubit():super(HomeInitialstate()){
-
-
   
   emit(HomeOnLoadingstate());
   fecthAndEmit();
@@ -14,7 +12,7 @@ class HomeCubit extends Cubit<HomeState>{
    
  fecthAndEmit() async{
   List<ProductModel> products= await fetchfromApi();
-  emit(HomeProductsLoadingState(allProducts: products));
+  emit(HomeProductsLoadedState(allProducts: products));
 
  }
 

@@ -1,9 +1,11 @@
 import 'package:bloc_rest/application/cart_bloc/cart_bloc.dart';
 import 'package:bloc_rest/application/cart_bloc/cart_event.dart';
 import 'package:bloc_rest/application/cart_bloc/cart_state.dart';
+
 import 'package:bloc_rest/application/home_cubit/home_bloc.dart';
 import 'package:bloc_rest/application/home_cubit/home_state.dart';
 import 'package:bloc_rest/presentation/screen/cart_screen.dart';
+import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,15 +50,15 @@ class HomeScreen extends StatelessWidget {
               ),
             )
           ],
-            title: const Text("Shopify"),
+          title: const Text("Shopify"),
           backgroundColor: const Color.fromARGB(255, 103, 207, 217)),
       body: Column(children: [
-        Expanded(
-            child: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-          return state is HomeProductsLoadingState
+        Expanded(child:
+            BlocBuilder<HomeCubit, HomeState>(builder: (context, state1) {
+          return state1 is HomeProductsLoadedState
               ? GridView.count(
                   crossAxisCount: 2,
-                  children: List.generate(state.allProducts.length, (index) {
+                  children: List.generate(state1.allProducts.length, (index) {
                     return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
@@ -70,31 +72,43 @@ class HomeScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Image.network(state.allProducts[index].image,
+                                Image.network(state1.allProducts[index].image,
                                     height: 60, width: 40, scale: 1.0),
-                                state.allProducts[index].title.length > 20
+                                state1.allProducts[index].title.length > 20
                                     ? Text(
-                                        state.allProducts[index].title
+                                        state1.allProducts[index].title
                                             .substring(0, 20),
                                         style: const TextStyle(fontSize: 13),
                                       )
-                                    : Text(state.allProducts[index].title,
+                                    : Text(state1.allProducts[index].title,
                                         style: const TextStyle(fontSize: 13)),
                                 Text(
-                                  "₹${state.allProducts[index].price}",
+                                  "₹${state1.allProducts[index].price}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w600),
                                 ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     ElevatedButton(
                                         onPressed: () {
                                           BlocProvider.of<CartBloc>(context)
                                               .add(CartAdd(
-                                                  productAdd: state
+                                                  productAdd: state1
                                                       .allProducts[index]));
-                                        //  context.read<CartBloc>().add(CartAdd(productAdd: state.allProducts[index]));
+
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  duration:
+                                                      const Duration(seconds: 2),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  backgroundColor: Colors.green,
+                                                  content: Text(
+                                                      " Added ${state1.allProducts[index].title.substring(0, 15)} to cart ")));
+
+                                          //  context.read<CartBloc>().add(CartAdd(productAdd: state.allProducts[index]));
                                         },
                                         child: const Row(
                                           children: [
@@ -102,25 +116,29 @@ class HomeScreen extends StatelessWidget {
                                             Icon(Icons.shopping_cart),
                                           ],
                                         )),
-                                    BlocBuilder<HomeCubit, HomeState>(
-                                      builder: (context, state) {
-                                        return      IconButton(
-                                            onPressed: () {
-                                             
-                                            },
-                                            icon: 
-                                                                    
-                                            const Icon(
-                                                Icons.favorite_outline));
-                                      },
-                                    )
                                   ],
                                 )
                               ],
                             )));
                   }),
                 )
-              : const Center(child: CircularProgressIndicator());
+              :  CardLoading(
+                height: 700,
+                child: Column(
+                  children: [
+                    Row(children: [
+                      
+                      Container(),
+                    
+                    
+                    ],),
+
+                    Container()
+                  ],
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                margin: EdgeInsets.only(bottom: 10),
+              );
         }))
       ]),
     );

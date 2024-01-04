@@ -1,5 +1,3 @@
-
-
 import 'package:bloc_rest/application/cart_bloc/cart_bloc.dart';
 import 'package:bloc_rest/application/cart_bloc/cart_event.dart';
 import 'package:bloc_rest/application/cart_bloc/cart_state.dart';

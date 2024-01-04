@@ -17,7 +17,34 @@ class MyLoginPage extends StatelessWidget {
     return Scaffold(
         body: BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is LoginSuccessState) {}
+          if(state is LoginfailedState){
+            ScaffoldMessenger.of(context).showSnackBar(
+              
+              SnackBar(
+                 behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.red,
+                content: Text(state.errorMessege)));
+          }
+        if (state is LoginSuccessState) {
+                         
+
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (ctx) => const HomeScreen()),
+                            (route) => false);
+
+
+                             ScaffoldMessenger.of(context).showSnackBar(
+              
+              const SnackBar(
+                duration: Duration(seconds: 2),
+                 behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.green,
+                content: Text("Login Successful")));
+
+                        // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        //     builder: (ctx) => const HomeScreen()));
+                      }
       },
       builder: (context, state) {
         
@@ -51,9 +78,7 @@ class MyLoginPage extends StatelessWidget {
                     hintText: "Password", border: OutlineInputBorder()),
               ),
             ),
-            // const SizedBox(
-            //   height: 20,
-            // ),
+      
 
    
             Center(
@@ -70,14 +95,7 @@ class MyLoginPage extends StatelessWidget {
                               username: usrnamecont.text,
                               password: passcont.text));
 
-                      if (state is LoginSuccessState) {
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (ctx) => const HomeScreen()),
-                            (route) => false);
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (ctx) => const HomeScreen()));
-                      }
+                    
                       // context.read<LoginBloc>().add(LoginButtonClicked(username: usrnamecont.text, password: passcont.text));
                       // add(LoginButtonClicked(username: usrnamecont.text, password: passcont.text));
                     },

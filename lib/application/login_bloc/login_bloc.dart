@@ -7,11 +7,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LogininitialState()) {
     on<LoginButtonClicked>((event, emit) async {
       emit(LoginLoadingState());
-    print(event.username);
-    print(event.password);
+  
       final loginval = await checkLogin(event.username, event.password);
 
-      if (loginval==false) {
+      if (!loginval) {
         emit(LoginfailedState(
             errorMessege: "Please Enter Valid Username and Password"));
       } else {
@@ -21,3 +20,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
   }
 }
+
+
+// on<LoginButtonClicked>((event, emit) async {
+//       emit(LoginLoadingState());
+//       var val= await loginChecking(event.email,event.password);
+//       if(val){
+//         emit(LoginSuccessState());
+//       }
+//       else{
+//         emit(LoginErrorState(error: 'Invalid user name or password'));
+//       }

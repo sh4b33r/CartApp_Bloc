@@ -7,17 +7,14 @@ abstract class HomeState{}
 class HomeInitialstate extends HomeState{}
 class HomeOnLoadingstate extends HomeState{}
 
-class HomeProductsLoadingState extends HomeState{
+class HomeProductsLoadedState extends HomeState{
   final List<ProductModel> allProducts;
 
- HomeProductsLoadingState({required this.allProducts});
+ HomeProductsLoadedState({required this.allProducts});
 }
 
 
-class HomefavoriteState extends HomeState{
- 
-
-}
+class HomefavoriteState extends HomeState{}
 
 class HomeProductfailedState extends HomeState{
  String error;

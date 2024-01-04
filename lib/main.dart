@@ -1,3 +1,4 @@
+
 import 'package:bloc_rest/application/home_cubit/home_bloc.dart';
 import 'package:bloc_rest/application/login_bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CartBloc(),
-        )
+        ),
+     
       ],
       child: SafeArea(
         child: MaterialApp(

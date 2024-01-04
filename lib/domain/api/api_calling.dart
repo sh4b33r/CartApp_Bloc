@@ -14,14 +14,14 @@ Future<List<ProductModel>> fetchfromApi() async {
     throw Exception("Something Went Wrong >>${response.statusCode}");
   }
 }
-
+// dummy json
 // "email": "eve.holt@reqres.in",
 //   "password": "cityslicka"
 
 Future<bool> checkLogin(String username, String password) async {
-  
+ 
   final response = await http.post(Uri.parse('https://reqres.in/api/login'),
       body: {"email": username, "password": password});
-  
+    Future.delayed(const Duration(seconds: 5));
   return response.statusCode == 200 ? true : false;
 }
